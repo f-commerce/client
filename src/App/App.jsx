@@ -11,12 +11,13 @@ import { AuthProvider } from "../context/AuthContext";
 import UserProfile from "../pages/UserProfile/UserProfile";
 import Footer from "../components/particles/Footer";
 import "./App.css";
-import PrivateRoute from "../context/PrivateRoutes";
-import { useLocalStorage } from "react-use";
+import  { PrivateRoute,  AdminPrivateRoute } from "../Context/PrivateRoutes";
+
+
 
 const App = () => {
-  const [user, setUser] = useLocalStorage("accessToken");
-  // console.log("Usuario LLEVADO A APP CORRECTAMENTE PARA PROTEGER RUTA su INFO es:", userToken);
+
+  
 
   return (
     <AuthProvider>
@@ -31,9 +32,12 @@ const App = () => {
 
           <Route path="/*" element={<NotFound />} />
           {/* // *-_-* -------------rutas protegidas en frontend ------------- *-_-* // */}
-          <Route element={<PrivateRoute isAllowed={false} />}>
+          <Route element={<AdminPrivateRoute isAllowed={false} />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
           </Route>
+
+        
+
           <Route element={<PrivateRoute isAllowed={false} />}>
             <Route path="/user-profile" element={<UserProfile />} />
           </Route>

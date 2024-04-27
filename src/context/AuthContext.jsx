@@ -2,6 +2,8 @@ import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
 
+
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -33,8 +35,9 @@ export const AuthProvider = ({ children }) => {
 const alertMessage = `Usuario logueado correctamente ✅\nToken: ${token}\nMensaje: ${message}`;
 alert(alertMessage);
 setUser(true);
-      // Guardar el token en el localStorage
-      localStorage.setItem("accessToken", userToken);
+      // Guardar el token de usuario en el localStorage
+      localStorage.setItem("accessToken", JSON.stringify(userToken));
+
       return res; // OJOOOO Aquí devolvemos la respuesta
     } else {
       console.error("Error en el login de la cuenta:", res.statusText);
@@ -68,8 +71,9 @@ setUser(true);
 const alertMessage = `Administrador logueado correctamente ✅\nToken: ${token}\nMensaje: ${message}`;
 alert(alertMessage);
 setUser(true);
-      // Guardar el token en el localStorage
-      localStorage.setItem("accessToken", userToken);
+      // Guardar el token de Admin en el localStorage
+      localStorage.setItem("adminToken", JSON.stringify(userToken));
+
       return res; // OJOOOO Aquí devolvemos la respuesta
     } else {
       console.error("Error en el login sudo su de la cuenta:", res.statusText);
@@ -102,7 +106,8 @@ setUser(true);
         
 
        
-        localStorage.setItem("accessToken", userToken);
+        localStorage.setItem("accessToken", JSON.stringify(userToken));
+
         setUser(true); //OJO POR VERIFICAR
       
         return res; // Aquí devolvemos la respuesta

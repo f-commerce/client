@@ -2,9 +2,8 @@ import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from './AuthContext'; // Importa tu hook personalizado
 
-const PrivateRoute = ({ redirectPath = '/register' }) => {
+export const PrivateRoute = ({ redirectPath = '/register' }) => {
   const token = localStorage.getItem('accessToken');
-  console.log("TOKEN: ", token);
 
   if (!token) {
     return <Navigate to={redirectPath} replace />;
@@ -12,7 +11,16 @@ const PrivateRoute = ({ redirectPath = '/register' }) => {
 
   return <Outlet />;
 };
-export default PrivateRoute;
+export const AdminPrivateRoute = ({ redirectPath = '/register' }) => {
+  const token = localStorage.getItem('adminToken');
+
+  if (!token) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return <Outlet />;
+};
+
 
 
 // import React from 'react';

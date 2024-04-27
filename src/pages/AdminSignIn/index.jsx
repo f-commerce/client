@@ -69,7 +69,7 @@ function AdminSignIn() {
     }
     try {
       const response = await adminSigninContext(formData);
-      console.log("Respuesta de la LOGIN:", response);
+      console.log("Respuesta del ADMIN LOGIN:", response);
 
       if (response.ok) {
         // Redirigir al usuario después de una creación exitosa
