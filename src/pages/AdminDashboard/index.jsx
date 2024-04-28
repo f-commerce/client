@@ -4,9 +4,7 @@ import Header from "../../components/particles/Header";
 import MapChart from "../../components/molecules/Charts/MapChart.jsx";
 import { LineChart } from "../../components/molecules/Charts/LineChart.jsx";
 
-
-const API_BASE_URL = "https://fcommerce-server-f5.vercel.app/api";
-
+const API_BASE_URL = "http://localhost:4000/api";
 const ITEMS_PER_PAGE = 4;
 
 const AdminDashboard = () => {
@@ -21,6 +19,7 @@ const AdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [action, setAction] = useState("");
   const [userModal, setUserModal] = useState(null);
+  const [IPBlocked, setIPBlocked] = useState(false);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -168,30 +167,6 @@ const AdminDashboard = () => {
       console.error("Error al eliminar usuario:", error);
     }
   };
-
-  // OJOOOOO REVISAR !!!!! :( Función para obtener la información detallada de un usuario por su ID
-  const viewUserByID = async (userId) => {
-    try {
-      const { token } = JSON.parse(localStorage.getItem("adminToken"));
-
-      // Realizar la solicitud para obtener la información del usuario por su ID
-      const response = await axios.get(`${API_BASE_URL}/users/${userId}`, {
-        headers: {
-          "x-access-token": token,
-        },
-      });
-
-      // Mostrar la información detallada del usuario en la consola
-      console.log("Info de vista detallada:", response.data);
-      alert("Vista detallada!!!");
-
-      // Actualizar los datos después de obtener la información del usuario
-      fetchData();
-    } catch (error) {
-      console.error("Error al obtener vista detallada de usuario:", error);
-    }
-  };
-
   // -_- ---------------- Funcines del CRUD ---------------- -_-
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -270,12 +245,41 @@ const AdminDashboard = () => {
     setVisibleLogs(securityLogs.slice(startIndex, endIndex));
   };
 
+  // -_- ---------------- Funciones para bloquear y desbloquear IPs ---------------- -_- //
+  const handleBlockIP = async (logId) => {
+    try {
+      // Realiza una solicitud PUT a la API para bloquear el registro con el ID logId
+      await axios.put(`${API_BASE_URL}/security/logs/block/${logId}`, { isBlocked: true });
+
+      // Actualiza el estado local para reflejar el cambio
+      setIPBlocked(true);
+      fetchData()
+    } catch (error) {
+      console.error("Error al bloquear el registro:", error);
+    }
+  };
+
+  const handleUnlockIP = async (logId) => {
+    try {
+      // Realiza una solicitud PUT a la API para desbloquear el registro con el ID logId
+      await axios.put(`${API_BASE_URL}/security/logs/unlock/${logId}`, { isBlocked: false });
+
+      // Actualiza el estado local para reflejar el cambio
+      setIPBlocked(false);
+      fetchData()
+    } catch (error) {
+      console.error("Error al desbloquear el registro:", error);
+    }
+  };
+
+  // -_- ---------------- FINAL DE Función para desbloquear una IP ---------------- -_- //
   return (
     <>
       <Header />
       <div className="container mx-auto mt-8">
         <h1 className="text-2xl font-bold mb-4">Panel de Administración</h1>
 
+      {/* // -_- ---------------------- REGISTROS DE USUARIOS ------------------------ -_- */}
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-4">Usuarios logueados</h2>
           <table className="w-full">
@@ -370,7 +374,7 @@ const AdminDashboard = () => {
             </button>
           </div>
         </div>
-
+{/* // -_- ---------------------- REGISTROS DE SEGURIDAD ------------------------ -_- */}
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-4">Registros de seguridad</h2>
           <table className="w-full">
@@ -384,11 +388,12 @@ const AdminDashboard = () => {
                 <th className="px-4 py-2">Agente de usuario</th>
                 <th className="px-4 py-2">Método HTTP</th>
                 <th className="px-4 py-2">Estado HTTP</th>
+                <th className="px-4 py-2">Bloqueado</th>
               </tr>
             </thead>
             <tbody>
               {visibleLogs.map((log) => (
-                <tr key={log._id}>
+                <tr key={log._id} className={log.isBlocked ? "bg-red-200" : ""}>
                   <td className="border px-4 py-2">{log._id}</td>
                   <td className="border px-4 py-2">{log.timestamp}</td>
                   <td className="border px-4 py-2">{log.eventType}</td>
@@ -397,6 +402,23 @@ const AdminDashboard = () => {
                   <td className="border px-4 py-2">{log.userAgent}</td>
                   <td className="border px-4 py-2">{log.httpMethod}</td>
                   <td className="border px-4 py-2">{log.httpStatus}</td>
+                  <td className="border px-4 py-2">
+                    {log.isBlocked ? (
+                      <button
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+                        onClick={() => handleUnlockIP(log._id)}
+                      >
+                        Desbloquear IP
+                      </button>
+                    ) : (
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                        onClick={() => handleBlockIP(log._id)}
+                      >
+                        Boloquear IP
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -622,7 +644,6 @@ const AdminDashboard = () => {
         </div>
         <MapChart />
         <LineChart />
-      
       </div>
     </>
   );
