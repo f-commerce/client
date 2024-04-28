@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import validator from "validator";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -13,7 +13,7 @@ function SignIn() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [captchaToken, setCaptchaToken] = useState("");
+  // const [captchaToken, setCaptchaToken] = useState("");
   const { signinContext } = useAuth();
   const navigate = useNavigate();
 
@@ -37,9 +37,9 @@ function SignIn() {
     return errors;
   };
 
-  const handleCaptchaChange = (token) => {
-    setCaptchaToken(token);
-  };
+  // const handleCaptchaChange = (token) => {
+  //   setCaptchaToken(token);
+  // };
 
   
 
@@ -53,10 +53,10 @@ function SignIn() {
 
       return;
     }
-    if (captchaToken === "") {
-      alert("Por favor, completa la verificación reCAPTCHA.");
-      return;
-    }
+    // if (captchaToken === "") {
+    //   alert("Por favor, completa la verificación reCAPTCHA.");
+    //   return;
+    // }
     try {
       const response = await signinContext(formData);
       console.log("Respuesta de la LOGIN:", response);
@@ -138,10 +138,10 @@ function SignIn() {
               <div style={{ color: "red" }}>{errors.password.message}</div>
             )}
           </div>
-          <ReCAPTCHA
+          {/* <ReCAPTCHA
             sitekey="6LcPH8EpAAAAAFZ9ZDbmwsM4GXzWVRHl5U_xjdPb"
             onChange={handleCaptchaChange}
-          />
+          /> */}
           <button
             className="bg-black text-white w-full rounded-lg py-3"
             type="submit"

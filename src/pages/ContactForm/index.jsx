@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import validator from "validator";
 import DOMPurify from "dompurify";
 import Header from "../../components/particles/Header";
@@ -11,7 +11,7 @@ import Header from "../../components/particles/Header";
 // dotenv.config();
 
 function ContactForm() {
-  const [captchaToken, setCaptchaToken] = useState("");
+  // const [captchaToken, setCaptchaToken] = useState("");
 
   // -_- Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
@@ -85,9 +85,9 @@ function ContactForm() {
   };
 
   // -_- ------------- Función para manejar el reCAPTCHA ------------- -_-
-  const handleCaptchaChange = (token) => {
-    setCaptchaToken(token);
-  };
+  // const handleCaptchaChange = (token) => {
+  //   setCaptchaToken(token);
+  // };
   // -_- ------------- Función para manejar los cambios en los campos del formulario ------------- -_-
   const handleInputChange = (e) => {
     setFormData({
@@ -120,13 +120,13 @@ function ContactForm() {
     }
 
     // Verificar si el campo reCAPTCHA está lleno
-    if (captchaToken === "") {
-      alert("Por favor, completa la verificación reCAPTCHA.");
-      return;
-    }
+    // if (captchaToken === "") {
+    //   alert("Por favor, completa la verificación reCAPTCHA.");
+    //   return;
+    // }
 
     try {
-      const API_BASE_URL = "https://server-fcommerce.vercel.app/api";
+      const API_BASE_URL = "http://localhost:4000/api";
       // Enviar solicitud POST para autenticar al usuario y obtener el token
       const response = await fetch(`${API_BASE_URL}/contact/form`, {
         method: "POST",
@@ -244,10 +244,10 @@ function ContactForm() {
             </div>
           </div>
           {/* *-_-* ---------- ReCAPTCHA ----------- *-_-* */}
-          <ReCAPTCHA
+          {/* <ReCAPTCHA
             sitekey="6LcPH8EpAAAAAFZ9ZDbmwsM4GXzWVRHl5U_xjdPb"
             onChange={handleCaptchaChange}
-          />
+          /> */}
           <button
             className="bg-black text-white w-full rounded-lg py-3"
             type="submit"

@@ -11,9 +11,14 @@ import { AuthProvider } from "../context/AuthContext";
 import UserProfile from "../pages/UserProfile/UserProfile";
 import Footer from "../components/particles/Footer";
 import "./App.css";
-import { PrivateRoute, AdminPrivateRoute } from "../context/PrivateRoutes";
+import  { PrivateRoute,  AdminPrivateRoute } from "../context/PrivateRoutes";
+
+
 
 const App = () => {
+
+  
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -30,6 +35,9 @@ const App = () => {
           <Route element={<AdminPrivateRoute isAllowed={false} />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
           </Route>
+     
+
+        
 
           <Route element={<PrivateRoute isAllowed={false} />}>
             <Route path="/user-profile" element={<UserProfile />} />

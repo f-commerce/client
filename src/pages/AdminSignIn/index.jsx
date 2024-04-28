@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import validator from "validator";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ function AdminSignIn() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [captchaToken, setCaptchaToken] = useState("");
+  // const [captchaToken, setCaptchaToken] = useState("");
   const { adminSigninContext } = useAuth();
   const navigate = useNavigate();
 
@@ -43,9 +43,9 @@ function AdminSignIn() {
     return errors;
   };
   // -_- ------------- Función para manejar el reCAPTCHA ------------- -_-
-  const handleCaptchaChange = (token) => {
-    setCaptchaToken(token);
-  };
+  // const handleCaptchaChange = (token) => {
+  //   setCaptchaToken(token);
+  // };
 
   // -_- ------------- Función para manejar los cambios en los campos del formulario ------------- -_-
 
@@ -63,10 +63,10 @@ function AdminSignIn() {
 
       return;
     }
-    if (captchaToken === "") {
-      alert("Por favor, completa la verificación reCAPTCHA.");
-      return;
-    }
+    // if (captchaToken === "") {
+    //   alert("Por favor, completa la verificación reCAPTCHA.");
+    //   return;
+    // }
     try {
       const response = await adminSigninContext(formData);
       console.log("Respuesta del ADMIN LOGIN:", response);
@@ -148,10 +148,10 @@ function AdminSignIn() {
             )}
           </div>
           {/* *-_-* ---------- ReCAPTCHA ----------- *-_-* */}
-          <ReCAPTCHA
+          {/* <ReCAPTCHA
             sitekey="6LcPH8EpAAAAAFZ9ZDbmwsM4GXzWVRHl5U_xjdPb"
             onChange={handleCaptchaChange}
-          />
+          /> */}
           <button
             className="bg-black text-white w-full rounded-lg py-3"
             type="submit"
