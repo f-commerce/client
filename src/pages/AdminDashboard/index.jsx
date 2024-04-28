@@ -5,7 +5,8 @@ import MapChart from "../../components/molecules/Charts/MapChart.jsx";
 import { LineChart } from "../../components/molecules/Charts/LineChart.jsx";
 
 
-const API_BASE_URL = "https://localhost:4000/api";
+const API_BASE_URL = "https://fcommerce-server-f5.vercel.app/api";
+
 const ITEMS_PER_PAGE = 4;
 
 const AdminDashboard = () => {
