@@ -126,7 +126,7 @@ function ContactForm() {
     }
 
     try {
-      const API_BASE_URL = "http://localhost:4000/api";
+      const API_BASE_URL = "https://server-fcommerce.vercel.app/api";
       // Enviar solicitud POST para autenticar al usuario y obtener el token
       const response = await fetch(`${API_BASE_URL}/contact/form`, {
         method: "POST",

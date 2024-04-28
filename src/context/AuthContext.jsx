@@ -1,7 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
-
+const backendURL = "https://server-fcommerce.vercel.app"
+const signInEndpoint = `${backendURL}/api/auth/signin`;
+const adminSignInEndpoint = `${backendURL}/api/auth/admin/signin`;
+const signUpEndpoint = `${backendURL}/api/auth/signup`;
 
 
 export const useAuth = () => {
@@ -18,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const signinContext = async (user) => {
     try {
-    const res = await fetch("http://localhost:4000/api/auth/signin", {
+    const res = await fetch(signInEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +57,7 @@ setUser(true);
   
   const adminSigninContext = async (user) => {
     try {
-    const res = await fetch("http://localhost:4000/api/auth/admin/signin", {
+    const res = await fetch(adminSignInEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +93,7 @@ setUser(true);
 
   const signupContext = async (user) => {
     try {
-      const res = await fetch("http://localhost:4000/api/auth/signup", {
+      const res = await fetch(signUpEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
