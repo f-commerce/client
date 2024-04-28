@@ -5,7 +5,7 @@ import MapChart from "../../components/molecules/Charts/MapChart.jsx";
 import { LineChart } from "../../components/molecules/Charts/LineChart.jsx";
 
 
-const API_BASE_URL = "http://localhost:4000/api";
+const API_BASE_URL = "https://localhost:4000/api";
 const ITEMS_PER_PAGE = 4;
 
 const AdminDashboard = () => {
