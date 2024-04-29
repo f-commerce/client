@@ -7,7 +7,8 @@ import Header from '../../components/particles/Header';
 const defaultUserImage = "https://estaticos-cdn.prensaiberica.es/clip/5d9f03c7-0efd-443a-bdd1-c3b09d76f0b8_16-9-discover-aspect-ratio_default_0.webp";
 
 const UserProfile = () => {
-  const API_BASE_URL = "https://fcommerce-server.onrender.com/api/profile";
+  const API_BASE_URL = "http://localhost:4000/api/profile";
+  // const API_BASE_URL = "https://fcommerce-server.onrender.com/api/profile";
   const [user, setUser] = useState(null);
 
   useEffect(() => {
