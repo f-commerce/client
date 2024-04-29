@@ -160,9 +160,9 @@ function AdminSignIn() {
             Sudo Su!
           </button>
         </form>
-        <div className="flex flex-col w-80 my-4 px-auto">
-          <Link to="/login" className="text-black text-center">
-            ¿No Eres Administrador? O no pudiste hackearnos, anda crea una
+        <div className="flex flex-col w-80 mb-40">
+          <Link to="/register" className="text-black text-center">
+            <span className="text-red-500">¿No Eres Administrador? </span>O no pudiste hackearnos, anda crea una
             cuenta e inténtalo como usuario 😏
           </Link>
         </div>

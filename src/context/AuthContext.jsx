@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
   const signinContext = async (user) => {
     try {
-      const res = await fetch("http://localhost:4000/api/auth/signin", {
+      const res = await fetch("https://fcommerce-server.onrender.com/api/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
   const adminSigninContext = async (user) => {
     try {
-      const res = await fetch("http://localhost:4000/api/auth/admin/signin", {
+      const res = await fetch("https://fcommerce-server.onrender.com/api/auth/admin/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
 
   const signupContext = async (user) => {
     try {
-      const res = await fetch("http://localhost:4000/api/auth/signup", {
+      const res = await fetch("https://fcommerce-server.onrender.com/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -119,6 +119,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signoutContext = async () => {
+    // Eliminar el token de usuario del localStorage
+    localStorage.removeItem("accessToken");
+    // Eliminar el token de administrador del localStorage
+    localStorage.removeItem("adminToken");
+    // Establecer el estado de usuario como null para indicar que no hay sesión activa
     setUser(null);
   };
 

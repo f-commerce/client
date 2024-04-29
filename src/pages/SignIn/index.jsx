@@ -85,6 +85,7 @@ function SignIn() {
         <h1 className="font-medium text-xl text-center w-80 mb-6">
           Iniciar Sesión!
         </h1>
+        <div className="flex flex-col items-center gap-4 mt-10">
         <form
           className="flex flex-col gap-4 w-80"
           onSubmit={handleSubmit(onSubmitHandler)}
@@ -149,17 +150,22 @@ function SignIn() {
             Iniciar Sesión
           </button>
         </form>
-        <div className="flex flex-col w-80">
+        <div className="flex flex-col w-80 my-2">
           <Link to="/register" className="text-black">
-            ¿No tienes una cuenta? Crear una cuenta
+          <span className="text-red-500"> ¿No tienes una cuenta? </span>  Crear una cuenta
           </Link>
         </div>
-        <div className="my-2"></div>
-        <div className="flex flex-col w-80">
+      
+        <div className="flex flex-col items-center m-auto w-80 mb-10 ">
           <Link to="/admin/login" className="text-black">
-            ¿Eres Administrador? Crear una cuenta o intenta hackearnos 😏
+          <span className="text-red-500 ml-15"> ¿Eres Administrador?</span> Inicia tu sesión 
+          </Link>
+          <Link to="/admin/dashboard" className="text-black">
+          <span className="text-green-500"> o intenta hackearnos </span>😏
           </Link>
         </div>
+        </div>
+      
       </div>
     </>
   );
